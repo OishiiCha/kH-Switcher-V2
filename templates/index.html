@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KH XLR Switcher</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="demo">⚠️ SIMULATION MODE</div>
+
+    <div id="blueprint">
+        <div style="text-align:center; color:#64748b; font-size:0.8rem; margin-bottom:10px; letter-spacing:2px; font-weight:bold;">HARDWARE SIMULATION</div>
+        <svg viewBox="0 0 600 300">
+            <g transform="translate(40, 20)">
+                <rect x="-10" y="-10" width="60" height="260" fill="#1e293b" stroke="#10b981" stroke-width="2" rx="4"/>
+                <text x="20" y="-20" class="bp-label" fill="#10b981">RPI GPIO</text>
+
+                <circle cx="0" cy="0" r="4" class="bp-pin" fill="#eab308" title="1 3V3"/>
+                <circle cx="40" cy="0" r="4" class="bp-pin" fill="#ef4444" title="2 5V"/>
+
+                <circle cx="40" cy="40" r="4" class="bp-pin" fill="#000" title="6 GND"/>
+
+                <text x="-15" y="103" class="bp-sublabel">GPIO17</text>
+                <circle cx="0" cy="100" r="4" class="bp-pin-hl" title="11 GPIO17"/>
+
+                <text x="-15" y="123" class="bp-sublabel">GPIO27</text>
+                <circle cx="0" cy="120" r="4" class="bp-pin-hl" title="13 GPIO27"/>
+
+                <text x="-15" y="143" class="bp-sublabel">GPIO22</text>
+                <circle cx="0" cy="140" r="4" class="bp-pin-hl" title="15 GPIO22"/>
+                <circle cx="40" cy="150" r="4" class="bp-pin-hl" title="16 GPIO23"/>
+                <text x="55" y="153" class="bp-sublabel" style="text-anchor:start">GPIO23</text>
+            </g>
+
+            <g transform="translate(400, 50)">
+                <rect x="0" y="0" width="160" height="200" fill="#1e293b" stroke="#3b82f6" stroke-width="2" rx="6"/>
+                <text x="80" y="-15" class="bp-label" fill="#3b82f6">4-CH RELAY</text>
+
+                <rect x="-20" y="70" width="20" height="100" fill="#334155"/>
+                <circle cx="-10" cy="80" r="3" fill="#ef4444"/> <circle cx="-10" cy="95" r="3" fill="#000"/> <circle cx="-10" cy="110" r="3" class="bp-pin"/> <circle cx="-10" cy="125" r="3" class="bp-pin"/> <circle cx="-10" cy="140" r="3" class="bp-pin"/> <circle cx="-10" cy="155" r="3" class="bp-pin"/> <rect x="30" y="20" width="100" height="35" class="bp-relay"/>
+                <text x="80" y="42" class="bp-label">RELAY 1</text>
+                <rect x="30" y="65" width="100" height="35" class="bp-relay"/>
+                <text x="80" y="87" class="bp-label">RELAY 2</text>
+                <rect x="30" y="110" width="100" height="35" class="bp-relay"/>
+                <text x="80" y="132" class="bp-label">RELAY 3</text>
+                <rect x="30" y="155" width="100" height="35" class="bp-relay"/>
+                <text x="80" y="177" class="bp-label">RELAY 4</text>
+            </g>
+
+            <path d="M80 20 C150 20, 150 130, 390 130" class="bp-power"/>
+            <path d="M80 60 C120 60, 120 145, 390 145" class="bp-gnd"/>
+
+            <path id="wire-0" d="M40 120 C100 120, 200 160, 390 160" class="bp-wire"/>
+            <path id="wire-1" d="M40 140 C100 140, 200 175, 390 175" class="bp-wire"/>
+            <path id="wire-2" d="M40 160 C100 160, 200 190, 390 190" class="bp-wire"/>
+            <path id="wire-3" d="M80 170 C120 170, 200 205, 390 205" class="bp-wire"/>
+
+        </svg>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>
+                <svg class="icon-xl" viewBox="0 0 512 512"><path d="{{ IC_SLIDERS }}" fill="currentColor"/></svg>
+                KH XLR Switcher
+            </h1>
+            <div style="display:flex; align-items:center;">
+                <button class="btn-icon" onclick="toggleEdit()" title="Settings">
+                    <svg class="icon-lg" viewBox="0 0 512 512"><path d="{{ IC_COG }}" fill="currentColor"/></svg>
+                </button>
+                <div id="status-dot" class="conn-dot"></div>
+            </div>
+        </div>
+
+        <div class="master-controls">
+            <button class="btn-master btn-mute" onclick="allCh('mute')">
+                <svg class="icon" viewBox="0 0 512 512"><path d="{{ IC_MUTE }}" fill="currentColor"/></svg>
+                MUTE ALL
+            </button>
+            <button class="btn-master btn-unmute" onclick="allCh('unmute')">
+                <svg class="icon" viewBox="0 0 576 512"><path d="{{ IC_UNMUTE }}" fill="currentColor"/></svg>
+                UNMUTE ALL
+            </button>
+        </div>
+
+        <div id="list" class="grid"></div>
+        <div style="text-align:center; padding:15px; font-size:0.8rem; color:var(--mut);">XLR Switcher - OishiiCha</div>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-box">
+            <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
+                <h3 style="margin:0">Edit Channel</h3>
+                <button class="btn-icon" onclick="closeModal()" style="padding:0;"><svg class="icon" viewBox="0 0 352 512"><path d="{{ IC_TIMES }}" fill="currentColor"/></svg></button>
+            </div>
+            <input id="e-name" type="text">
+            <div id="pal" class="colors"></div>
+            <div class="btns">
+                <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+                <button class="btn-save" onclick="save()">Save</button>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

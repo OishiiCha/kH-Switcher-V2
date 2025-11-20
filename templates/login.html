@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KH XLR Switcher - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h2 style="margin-bottom: 20px;">SECURITY ACCESS</h2>
+    <div class="pin-dots">
+        <div class="dot" id="d1"></div><div class="dot" id="d2"></div><div class="dot" id="d3"></div><div class="dot" id="d4"></div>
+    </div>
+    <div class="keypad">
+        <div class="key" onclick="k(1)">1</div><div class="key" onclick="k(2)">2</div><div class="key" onclick="k(3)">3</div>
+        <div class="key" onclick="k(4)">4</div><div class="key" onclick="k(5)">5</div><div class="key" onclick="k(6)">6</div>
+        <div class="key" onclick="k(7)">7</div><div class="key" onclick="k(8)">8</div><div class="key" onclick="k(9)">9</div>
+        <div class="key" onclick="clr()" style="color:var(--err); font-size:1rem;">CLR</div>
+        <div class="key" onclick="k(0)">0</div>
+    </div>
+    <div style="position:absolute; bottom:20px; color:var(--mut); font-size:0.75rem;">XLR Switcher - OishiiCha</div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
