@@ -178,7 +178,6 @@ CSS = """
 """
 
 # --- HTML TEMPLATES ---
-# Use placeholders for icons to avoid string quoting hell
 LOGIN_HTML = """
 <!DOCTYPE html>
 <html>
