@@ -1,5 +1,5 @@
 ## Current known issues
-* Edit mode may persistafter exiting it, refresh browser to fix.
+* Edit mode may persist after exiting it, refresh browser to fix.
 * Large single file, future iterations should split the file
 ### Future Directory Structure
 ```txt
