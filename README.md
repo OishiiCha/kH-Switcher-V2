@@ -2,6 +2,33 @@
 
 A web-based and physical XLR audio switcher for Raspberry Pi. This system allows you to mute/unmute 4 channels of balanced audio via a web interface or physical push buttons, with status LED indicators.
 
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/9266c94e-bb6c-458c-a983-a2d55ef15a7d" width="300" alt="Device Photo">
+        <br />
+        <sub>Login</sub>
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/288cc1b6-2331-4996-b7b5-e38b6a7f1237" width="300" alt="Wiring Schematic">
+        <br />
+        <sub>Simulation Mode (no GPIO present)</sub>
+      </td>
+      <td align="center">
+        <img src="https://github.com/user-attachments/assets/1e34c17d-d0ef-45ca-b77d-01495334e729" width="300" alt="Pinout Diagram">
+        <br />
+        <sub>Edit</sub>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+
+
+
 ## 📂 Directory Structure
 
 Ensure your project folder is organized exactly as follows:
